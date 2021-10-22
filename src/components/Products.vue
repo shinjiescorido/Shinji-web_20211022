@@ -17,6 +17,7 @@
 		<table v-if="products.length" class="table table-bordered mt-5">
 			<thead>
 			<tr>
+				<th>#</th>
 				<th scope="col">Name</th>
 				<th scope="col">Code</th>
 				<th scope="col">Price</th>
@@ -26,6 +27,7 @@
 			</thead>
 			<tbody>
 			<tr v-for="(product, index) in products" :key="index">
+				<td>{{ index+((page-1)*50) + 1 }}</td>
 				<td>{{ product.name }}</td>
 				<td>{{ product.code }}</td>
 				<td>{{ product.price }}</td>
@@ -83,7 +85,7 @@ export default {
 			let count = await this.getData()
 			if(!count)
 				console.log('no-data')
-			this.pageCount = parseInt(Math.ceil(count / 10))
+			this.pageCount = count / 50
 		}catch(e){
 			console.log(e)
 		}
@@ -99,7 +101,7 @@ export default {
 					this.isLoading = false;
 					if(!count)
 						console.log('no-data')
-					this.pageCount = parseInt(Math.ceil(count / 10))
+					this.pageCount = count / 50
 					
 				}
 			}catch(e){
@@ -138,7 +140,7 @@ export default {
 					return false
 			} else {
 				let {code, name, price} = this.product
-				 // api edit for product item based on current index - 1
+				// api edit for product item based on current index - 1
 				let result = await axios.put('/'+this.products[this.editIndex-1]._id, {code, name, price})
 				if(result.status !== 200)
 					return false

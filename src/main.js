@@ -6,7 +6,7 @@ import '@fortawesome/fontawesome-free/js/all.js'
 import axios from 'axios'
 import Paginate from 'vuejs-paginate'
 
-axios.defaults.baseURL = process.env.API_URL
+axios.defaults.baseURL = process.env.VUE_APP_API_URL
 
 Vue.config.productionTip = false
 Vue.component('paginate', Paginate)
